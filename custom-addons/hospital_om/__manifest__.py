@@ -17,7 +17,8 @@
     'data': [
         'views/patient.xml',
         'views/sale.xml',
-        'security/ir.model.access.csv'
+        'security/ir.model.access.csv',
+        'data/data.xml'
     ],
     'installable': True,
     'application': True,
