@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_patient_kanban" model="ir.ui.view">
-        <field name="name">hospital.patient.kanban</field>
-        <field name="model">hospital.patient</field>
+    <record id="view_appointment_kanban" model="ir.ui.view">
+        <field name="name">hospital.appointment.kanban</field>
+        <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
 
             <kanban>
@@ -38,12 +38,12 @@
     </record>
 
     <!--!! list view-->
-    <record id="view_patient_tree" model="ir.ui.view">
-        <field name="name">hospital.patient.form</field>
-        <field name="model">hospital.patient</field>
+    <record id="view_appointment_tree" model="ir.ui.view">
+        <field name="name">hospital.appointment.form</field>
+        <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
+                <field name="patient_id"/>
                 <field name="responsible_id"/>
                 <field name="age"/>
                 <field name="gender"/>
@@ -53,9 +53,9 @@
         </field>
     </record>
     <!--!! from view-->
-    <record id="view_patient_form" model="ir.ui.view">
-        <field name="name">hospital.patient.form</field>
-        <field name="model">hospital.patient</field>
+    <record id="view_appointment_form" model="ir.ui.view">
+        <field name="name">hospital.appointment.form</field>
+        <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -74,17 +74,18 @@
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="reference" readonly="1"/>
+                            <field name="name" readonly="1"/>
                         </h1>
                     </div>
                     <group>
                         <group>
-                            <field name="name"/>
-                             <field name="responsible_id"/>
+                            <field name="patient_id"/>
+                            <field name="gender" readonly="1" force_save="1"/>
                             <field name="age"/>
                         </group>
                         <group>
-                            <field name="gender" invisible="context.get('hide_gender')"/>
+                            <field name="date_appointment"/>
+                            <field name="date_checkup"/>
                             <field name="note"/>
                         </group>
                     </group>
@@ -98,9 +99,9 @@
         </field>
     </record>
     <!--    search view-->
-    <record id="view_patient_search" model="ir.ui.view">
-        <field name="name">hospital.patient.search</field>
-        <field name="model">hospital.patient</field>
+    <record id="view_appointment_search" model="ir.ui.view">
+        <field name="name">hospital.appointment.search</field>
+        <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <search string="Recruitment Analysis">
                 <field name="name"/>
@@ -111,38 +112,35 @@
                 <filter string="Other" name="other" domain="[( 'gender', '=' , 'other')]"/>
                 <group expand="1" string="Group By">
                     <filter string="Gender" name="gender" context="{'group_by': 'gender'}"/>
-                    <filter string="Patient Name" name="patient_name" context="{'group_by': 'name'}"/>
+                    <filter string="appointment Name" name="appointment_name" context="{'group_by': 'name'}"/>
                     <filter string="Responsible" name="responsible_id" context="{'group_by': 'responsible_id'}"/>
                 </group>
             </search>
         </field>
     </record>
     <!--    !!acton-->
-    <record id="action_hospital_patient" model="ir.actions.act_window">
-        <field name="name">Patients</field>
+    <record id="action_hospital_appointment" model="ir.actions.act_window">
+        <field name="name">appointments</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">hospital.patient</field>
+        <field name="res_model">hospital.appointment</field>
         <field name="view_mode">tree,kanban,form</field>
         <field name="context">{'search_default_responsible_id': 1, 'search_default_male': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create your first patient!
+                Create your first appointment!
             </p>
         </field>
     </record>
 
     <!--    !! menu item-->
-    <menuitem id="hospital_root"
-              name="Hospital"
-              sequence="10"/>
 
-    <menuitem id="hospital_patient_root"
-              name="Patients"
+    <menuitem id="hospital_appointment_root"
+              name="appointments"
               parent="hospital_root"
-              sequence="10"/>
-    <menuitem id="hospital_patient"
-              name="Patients"
-              parent="hospital_patient_root"
-              action="action_hospital_patient"
+              sequence="20"/>
+    <menuitem id="hospital_appointment"
+              name="Appointments"
+              parent="hospital_appointment_root"
+              action="action_hospital_appointment"
               sequence="10"/>
 </odoo>

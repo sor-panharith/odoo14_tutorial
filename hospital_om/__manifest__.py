@@ -15,10 +15,13 @@
     'depends': ['sale', 'mail'],
     'demo': [],
     'data': [
+        'security/ir.model.access.csv',
+        'data/data.xml',
         'views/patient.xml',
         'views/sale.xml',
-        'security/ir.model.access.csv',
-        'data/data.xml'
+        'views/kids_view.xml',
+        'views/patient_gender_view.xml',
+        'views/appointment_view.xml'
     ],
     'installable': True,
     'application': True,
